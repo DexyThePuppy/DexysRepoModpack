@@ -23,7 +23,7 @@ Follow these steps to install and set up R2ModMan for playing modded games:
 
 5. **Type the code and click on "Continue"**
    ```
-   0196117a-1dd7-5c87-6617-0a41dd7763b8
+   01961205-3a8b-0d46-0ea4-694af68a5bda
    ```
 
 <img src="r2modman-profileSelection3.png" alt="Enter the code and click Continue" width="400"/>
