@@ -1,127 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R2ModMan Installation Guide</title>
+    <title>Dexy's R.E.P.O Modpack Installationsanleitung</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Pastel Orange Material You color scheme */
+            --md-sys-color-primary: #FF9E80;
+            --md-sys-color-on-primary: #2F312F;
+            --md-sys-color-primary-container: #FFE0D0;
+            --md-sys-color-on-primary-container: #3B1700;
+            --md-sys-color-surface: #FDFBFF;
+            --md-sys-color-surface-container-lowest: #FFFFFF;
+            --md-sys-color-surface-container-low: #F8F5F2;
+            --md-sys-color-surface-container: #F3F1EE;
+            --md-sys-color-surface-container-high: #EDE9E6;
+            --md-sys-color-surface-container-highest: #E8E0DB;
+            --md-sys-color-on-surface: #1A1C1E;
+            --md-sys-color-on-surface-variant: #49454E;
+            --md-sys-color-outline: #857370;
+            --md-sys-color-outline-variant: #D8C2BA;
+
+            /* Elevation values */
+            --md-sys-elevation-1: 0 2px 4px rgba(0,0,0,0.08);
+            --md-sys-elevation-2: 0 4px 8px rgba(0,0,0,0.08);
+            --md-sys-elevation-3: 0 8px 16px rgba(0,0,0,0.08);
+
+            /* Spacing tokens */
+            --md-sys-spacing-track: 8px;
+            --md-sys-spacing-small: 16px;
+            --md-sys-spacing-medium: 24px;
+            --md-sys-spacing-large: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Rail */
+        .nav-rail {
+            background: var(--md-sys-color-surface-container-low);
+            width: 80px;
+            padding: var(--md-sys-spacing-small);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--md-sys-spacing-small);
+            border-right: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .nav-item {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--md-sys-color-on-surface-variant);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--md-sys-color-surface-container-high);
+        }
+
+        .nav-item.active {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top App Bar */
+        .top-app-bar {
+            background: var(--md-sys-color-surface);
+            height: 64px;
+            padding: 0 var(--md-sys-spacing-medium);
+            display: flex;
+            align-items: center;
+            gap: var(--md-sys-spacing-medium);
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        /* Content Area */
+        .content {
+            padding: var(--md-sys-spacing-medium);
+            display: grid;
+            gap: var(--md-sys-spacing-medium);
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+            width: 100%;
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        /* Cards */
+        .step-card {
+            background: var(--md-sys-color-surface-container);
+            border-radius: 28px;
+            padding: var(--md-sys-spacing-medium);
+            display: grid;
+            gap: var(--md-sys-spacing-medium);
+            box-shadow: var(--md-sys-elevation-1);
+            transition: all 0.2s ease;
+            border: 1px solid var(--md-sys-color-outline-variant);
         }
-        h1, h2 {
-            color: #333;
-            border-bottom: 2px solid #eaecef;
-            padding-bottom: 0.3em;
+
+        .step-card:hover {
+            box-shadow: var(--md-sys-elevation-2);
+            background: var(--md-sys-color-surface-container-high);
         }
-        img {
-            display: block;
-            margin: 20px auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: var(--md-sys-spacing-small);
         }
-        code {
-            background-color: #f6f8fa;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: monospace;
+
+        .step-number {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
         }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        /* Images */
+        .step-image {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--md-sys-elevation-1);
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        /* Code Block */
         .code-block {
-            background-color: #f6f8fa;
-            padding: 16px;
-            border-radius: 6px;
-            overflow-x: auto;
+            background: var(--md-sys-color-surface-container-highest);
+            padding: var(--md-sys-spacing-small);
+            border-radius: 12px;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-outline-variant);
         }
+
+        /* Ready Section */
+        .ready-section {
+            background: var(--md-sys-color-primary-container);
+            padding: var(--md-sys-spacing-large);
+            border-radius: 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: black;
+        }
+
+
+        /* Note */
         .note {
-            background-color: #f8f9fa;
-            border-left: 4px solid #007bff;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 4px 4px 0;
+            background: var(--md-sys-color-surface-container-highest);
+            padding: var(--md-sys-spacing-medium);
+            border-radius: 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--md-sys-spacing-small);
+            margin: 32px 0;
+            color: var(--md-sys-color-on-surface);
+            box-shadow: var(--md-sys-elevation-1);
+        }
+
+        .note .material-symbols-rounded {
+            color: var(--md-sys-color-primary);
+            font-size: 20px;
+        }
+
+        .note em {
+            font-style: normal;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Material Icons */
+        .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+
+        /* Links */
+        .md-link {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--md-sys-color-surface-container-high);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .md-link:hover {
+            background: var(--md-sys-color-primary-container);
+            transform: translateY(-1px);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-surface: #1A1C1E;
+                --md-sys-color-surface-container-lowest: #0F1112;
+                --md-sys-color-surface-container-low: #1D1B1B;
+                --md-sys-color-surface-container: #211F1F;
+                --md-sys-color-surface-container-high: #2C2C2C;
+                --md-sys-color-surface-container-highest: #323232;
+                --md-sys-color-on-surface: #E2E2E6;
+                --md-sys-color-on-surface-variant: #CAC4CF;
+                --md-sys-color-outline: #9C8A83;
+                --md-sys-color-outline-variant: #4E4539;
+            }
+
+            .note {
+                background: var(--md-sys-color-surface-container-high);
+                border-color: var(--md-sys-color-outline-variant);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-rail {
+                display: none;
+            }
+
+            .content {
+                padding: var(--md-sys-spacing-small);
+            }
+
+            .step-card {
+                border-radius: 20px;
+                padding: var(--md-sys-spacing-small);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>R2ModMan Installation Guide</h1>
-        <p>by dexy woof</p>
-
-        <p>Follow these steps to install and set up R2ModMan for playing modded games:</p>
-
-        <h2>Installation Steps</h2>
-
-        <ol>
-            <li>
-                <strong>Install R2ModMan From this link:</strong><br>
-                <a href="https://github.com/ebkr/r2modmanPlus/releases/download/v3.1.57/r2modman-Setup-3.1.57.exe">R2ModMan v3.1.57</a>
-            </li>
-
-            <li>
-                <strong>Start R2ModMan and Search "Repo" in the Game Selection Screen and click on "Set as default"</strong>
-                <img src="r2modman-gameselection.png" alt="Search for Repo in Game Selection Screen" width="400">
-            </li>
-
-            <li>
-                <strong>In the Profile Selection Screen, click on "Import/Update" Button.</strong>
-                <img src="r2modman-profileSelection1.png" alt="Click Import/Update Button" width="400">
-            </li>
-
-            <li>
-                <strong>Then Click on "From code"</strong>
-                <img src="r2modman-profileSelection2.png" alt="Click From code" width="400">
-            </li>
-
-            <li>
-                <strong>Type the code and click on "Continue"</strong>
-                <div class="code-block">
-                    <code>01961743-5e6d-d6df-f926-bc6779363ac6</code>
-                </div>
-                <img src="r2modman-profileSelection3.png" alt="Enter the code and click Continue" width="400">
-            </li>
-
-            <li>
-                <strong>Click on "Import".</strong>
-                <img src="r2modman-profileSelection4.png" alt="Choose Import new profile or Update existing profile" width="400">
-            </li>
-
-            <li>
-                <strong>After that, click on "Import new profile", or if updating the modpack on "Update existing profile".</strong>
-                <img src="r2modman-profileSelection5.png" alt="Select the profile" width="400">
-            </li>
-
-            <li>
-                <strong>Click on "Create"</strong>
-                <img src="r2modman-profileSelection6.png" alt="Start modded" width="400">
-            </li>
-
-            <li>
-                <strong>When the download finished, click on the new profile and click on "Select Profile".</strong>
-                <img src="r2modman-profileSelection7.png" alt="Ready to play" width="400">
-            </li>
-
-            <li>
-                <strong>Finally click on "Start modded", to play the modpack!</strong>
-                <img src="r2modman-profileSelection8.png" alt="Ready to play" width="400">
-            </li>
-        </ol>
-
-        <h2>Ready to Play!</h2>
-
-        <p>Now you've synced your mods! You can start modded and play with friends now!</p>
-
-        <div class="note">
-            <em>Note: Make sure you have the base game installed before running the modded version.</em>
+    <nav class="nav-rail">
+        <div class="nav-item active">
+            <span class="material-symbols-rounded">home</span>
         </div>
+        <div class="nav-item">
+            <span class="material-symbols-rounded">description</span>
+        </div>
+        <div class="nav-item">
+            <span class="material-symbols-rounded">settings</span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <header class="top-app-bar">
+            <span class="material-symbols-rounded">menu</span>
+            <h1 class="page-title">Dexy's R.E.P.O Modpack Installation</h1>
+        </header>
+
+        <main class="content">
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h2 class="step-title">Installiere R2ModMan</h2>
+                </div>
+                <a href="https://github.com/ebkr/r2modmanPlus/releases/download/v3.1.57/r2modman-Setup-3.1.57.exe" class="md-link">
+                    <span class="material-symbols-rounded">download</span>
+                    R2ModMan v3.1.57
+                </a>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h2 class="step-title">Suche nach "Repo" im Game Selection Screen</h2>
+                </div>
+                <p>Klicke auf "Set as default"</p>
+                <img src="r2modman-gameselection.png" alt="Game Selection Screen" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h2 class="step-title">Öffne den Profile Selection Screen</h2>
+                </div>
+                <p>Klicke auf "Import/Update"</p>
+                <img src="r2modman-profileSelection1.png" alt="Profile Selection Screen" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h2 class="step-title">Wähle "From code"</h2>
+                </div>
+                <img src="r2modman-profileSelection2.png" alt="From Code Option" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h2 class="step-title">Gib den Code ein</h2>
+                </div>
+                <div class="code-block">01961743-5e6d-d6df-f926-bc6779363ac6</div>
+                <p>Klicke auf "Continue"</p>
+                <img src="r2modman-profileSelection3.png" alt="Enter Code" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h2 class="step-title">Klicke auf "Import"</h2>
+                </div>
+                <img src="r2modman-profileSelection4.png" alt="Import Profile" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h2 class="step-title">Wähle den Profil-Typ</h2>
+                </div>
+                <p>Klicke auf "Import new profile" oder "Update existing profile"</p>
+                <img src="r2modman-profileSelection5.png" alt="Choose Profile Type" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">8</span>
+                    <h2 class="step-title">Klicke auf "Create"</h2>
+                </div>
+                <img src="r2modman-profileSelection6.png" alt="Create Profile" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">9</span>
+                    <h2 class="step-title">Wähle das neue Profil</h2>
+                </div>
+                <p>Klicke auf "Select Profile"</p>
+                <img src="r2modman-profileSelection7.png" alt="Select Profile" class="step-image">
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">10</span>
+                    <h2 class="step-title">Starte das Modpack</h2>
+                </div>
+                <p>Klicke auf "Start modded"</p>
+                <img src="r2modman-profileSelection8.png" alt="Start Modded" class="step-image">
+            </div>
+
+            <div class="ready-section">
+                <h2>Bereit zum Spielen!</h2>
+                <p>Du hast deine Mods erfolgreich synchronisiert! Du kannst jetzt modifiziert mit deinen Freunden spielen!</p>
+            </div>
+
+            <div class="note">
+                <span class="material-symbols-rounded">info</span>
+                <em>Hinweis: Stelle sicher, dass das Basisspiel installiert ist, bevor du die modifizierte Version startest.</em>
+            </div>
+        </main>
     </div>
 </body>
 </html> 
